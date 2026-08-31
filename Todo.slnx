@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Client/">
+    <Project Path="src/Client/Todo.Client/Todo.Client.csproj" />
+  </Folder>
+  <Folder Name="/src/Native/">
+    <Project Path="src/Native/Todo.Desktop/Todo.Desktop.csproj" />
+  </Folder>
+  <Folder Name="/src/Server/" />
+  <Folder Name="/src/Server/API Gateway/" />
+  <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/Todo.Shared/Todo.Shared.csproj" />
+  </Folder>
+</Solution>
