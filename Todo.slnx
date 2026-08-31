@@ -42,4 +42,39 @@
   <Folder Name="/src/Shared/">
     <Project Path="src/Shared/Todo.Shared/Todo.Shared.csproj" />
   </Folder>
+  <Folder Name="/tests/" />
+  <Folder Name="/tests/Client/">
+    <Project Path="tests/Client/Todo.Client.Tests/Todo.Client.Tests.csproj" Id="ed86a60b-8f63-42ea-8ace-59608965f663" />
+  </Folder>
+  <Folder Name="/tests/Native/">
+    <Project Path="tests/Native/Todo.Desktop.Tests/Todo.Desktop.Tests.csproj" Id="1f82da52-8c6a-40cd-8ddb-165a79dc0f9e" />
+  </Folder>
+  <Folder Name="/tests/Server/" />
+  <Folder Name="/tests/Server/Identity/">
+    <Project Path="tests/Server/Identity/Todo.Identity.Tests/Todo.Identity.Tests.csproj" Id="c4ae86b9-27fe-4620-a987-559241dd6cb3" />
+  </Folder>
+  <Folder Name="/tests/Server/Main/">
+    <Project Path="tests/Server/Main/Todo.Main.Api.Tests/Todo.Main.Api.Tests.csproj" Id="76de0604-6003-4bbc-b99d-b7c81ed6a895" />
+    <Project Path="tests/Server/Main/Todo.Main.Application.Tests/Todo.Main.Application.Tests.csproj" Id="9e5dc0e7-d6ac-444f-bd9d-793b1ddaad6d" />
+    <Project Path="tests/Server/Main/Todo.Main.Domain.Tests/Todo.Main.Domain.Tests.csproj" Id="dec802f0-9c2c-41ab-b8b3-c54743803b3c" />
+    <Project Path="tests/Server/Main/Todo.Main.Infrastructure.Tests/Todo.Main.Infrastructure.Tests.csproj" Id="87bd365a-a7b4-47de-89ef-4885ea81719a" />
+  </Folder>
+  <Folder Name="/tests/Server/Notification/">
+    <Project Path="tests/Server/Notification/Todo.Notification.Api.Tests/Todo.Notification.Api.Tests.csproj" Id="1ce5d841-5114-4c26-929b-6ef5d1c15973" />
+    <Project Path="tests/Server/Notification/Todo.Notification.Application.Tests/Todo.Notification.Application.Tests.csproj" Id="b2ef550c-20a2-4c57-bfc8-c8d9b252a065" />
+    <Project Path="tests/Server/Notification/Todo.Notification.Domain.Tests/Todo.Notification.Domain.Tests.csproj" Id="dea76fd9-3d3d-4344-ba65-38b4e60b87db" />
+    <Project Path="tests/Server/Notification/Todo.Notification.Infrastructure.Tests/Todo.Notification.Infrastructure.Tests.csproj" Id="b7851ee7-b31c-4502-9bb1-1601614c458b" />
+  </Folder>
+  <Folder Name="/tests/Server/Search/">
+    <Project Path="tests/Server/Search/Todo.Search.Api.Tests/Todo.Search.Api.Tests.csproj" Id="deed5dde-391b-4bff-8225-c13237365fb9" />
+    <Project Path="tests/Server/Search/Todo.Search.Application.Tests/Todo.Search.Application.Tests.csproj" Id="69975845-e474-4518-86db-a84572a155c6" />
+    <Project Path="tests/Server/Search/Todo.Search.Domain.Tests/Todo.Search.Domain.Tests.csproj" Id="72ccebb8-95dc-4411-850b-17b61fcf0925" />
+    <Project Path="tests/Server/Search/Todo.Search.Infrastructure.Tests/Todo.Search.Infrastructure.Tests.csproj" Id="57879748-c8db-44dd-ba63-00ab7fab9e55" />
+  </Folder>
+  <Folder Name="/tests/Server/User Profile/">
+    <Project Path="tests/Server/User Profile/Todo.UserProfile.Api.Tests/Todo.UserProfile.Api.Tests.csproj" Id="b355fd77-d7db-4034-8ce4-43b1139fee54" />
+    <Project Path="tests/Server/User Profile/Todo.UserProfile.Application.Tests/Todo.UserProfile.Application.Tests.csproj" Id="c6b5e627-ecc7-4b77-bd0c-a6b4184ba58c" />
+    <Project Path="tests/Server/User Profile/Todo.UserProfile.Domain.Tests/Todo.UserProfile.Domain.Tests.csproj" Id="506ee961-42d2-49be-904e-c9abf17a0f57" />
+    <Project Path="tests/Server/User Profile/Todo.UserProfile.Infrastructure.Tests/Todo.UserProfile.Infrastructure.Tests.csproj" Id="017c988c-2f18-4dbe-913e-5151a44623b0" />
+  </Folder>
 </Solution>
