@@ -6,8 +6,39 @@
   <Folder Name="/src/Native/">
     <Project Path="src/Native/Todo.Desktop/Todo.Desktop.csproj" />
   </Folder>
-  <Folder Name="/src/Server/" />
-  <Folder Name="/src/Server/API Gateway/" />
+  <Folder Name="/src/Server/">
+    <Project Path="src/Server/Todo.Server.Shared/Todo.Server.Shared.csproj" Id="1b6a3365-fcff-489c-97ec-f099bc02e69e" />
+  </Folder>
+  <Folder Name="/src/Server/API Gateway/">
+    <Project Path="src/Server/API Gateway/Todo.ApiGateway/Todo.ApiGateway.csproj" Id="57978486-ebae-44f5-9c26-690c2e79696e" />
+  </Folder>
+  <Folder Name="/src/Server/Identity/">
+    <Project Path="src/Server/Identity/Todo.Identity/Todo.Identity.csproj" Id="ecbc493d-54a7-4cf3-b8ec-8c82a6c435cf" />
+  </Folder>
+  <Folder Name="/src/Server/Main/">
+    <Project Path="src/Server/Main/Todo.Main.Api/Todo.Main.Api.csproj" Id="d250195a-53a2-4f07-a44e-df8922ad7b8e" />
+    <Project Path="src/Server/Main/Todo.Main.Application/Todo.Main.Application.csproj" Id="32b491ef-c4cf-4575-a878-44187765d0e1" />
+    <Project Path="src/Server/Main/Todo.Main.Domain/Todo.Main.Domain.csproj" Id="4bd39e26-2bda-4bbe-9415-7e053c1551fb" />
+    <Project Path="src/Server/Main/Todo.Main.Infrastructure/Todo.Main.Infrastructure.csproj" Id="c918db30-e919-4300-8927-c119b0dfd98a" />
+  </Folder>
+  <Folder Name="/src/Server/Notifiction/">
+    <Project Path="src/Server/Notification/Todo.Notification.Api/Todo.Notification.Api.csproj" Id="89b905d7-897c-4a3e-9d50-bfd106380738" />
+    <Project Path="src/Server/Notification/Todo.Notification.Application/Todo.Notification.Application.csproj" Id="cad01cf9-1643-4908-8572-e7209d12e9a0" />
+    <Project Path="src/Server/Notification/Todo.Notification.Domain/Todo.Notification.Domain.csproj" Id="163b804d-c8cd-4f1f-97fd-2501297a9689" />
+    <Project Path="src/Server/Notification/Todo.Notification.Infrastructure/Todo.Notification.Infrastructure.csproj" Id="d89dc87c-d975-4187-9e96-38663944606d" />
+  </Folder>
+  <Folder Name="/src/Server/Search/">
+    <Project Path="src/Server/Search/Todo.Search.Api/Todo.Search.Api.csproj" Id="1d21c02c-5f36-4661-ab2a-139bc4592ba9" />
+    <Project Path="src/Server/Search/Todo.Search.Application/Todo.Search.Application.csproj" Id="3eaf1b14-e31d-438c-862b-15ff99533f68" />
+    <Project Path="src/Server/Search/Todo.Search.Domain/Todo.Search.Domain.csproj" Id="f4ba49a4-3408-4d2b-94bc-15bb6854885e" />
+    <Project Path="src/Server/Search/Todo.Search.Infrastructure/Todo.Search.Infrastructure.csproj" Id="e22f26f8-5558-4e32-b49a-4619997144c1" />
+  </Folder>
+  <Folder Name="/src/Server/User Profile/">
+    <Project Path="src/Server/User Profile/Todo.UserProfile.Api/Todo.UserProfile.Api.csproj" Id="68c63442-0cb6-4791-9c0a-f3e495faec0e" />
+    <Project Path="src/Server/User Profile/Todo.UserProfile.Application/Todo.UserProfile.Application.csproj" Id="84405ba2-da07-44ad-8b32-6561b1e9c5be" />
+    <Project Path="src/Server/User Profile/Todo.UserProfile.Domain/Todo.UserProfile.Domain.csproj" Id="a8dba9dd-7dd0-4a06-b95b-19e76c9c7726" />
+    <Project Path="src/Server/User Profile/Todo.UserProfile.Infrastructure/Todo.UserProfile.Infrastructure.csproj" Id="818ee66e-fe28-48f3-9aee-9cde57a1aa3a" />
+  </Folder>
   <Folder Name="/src/Shared/">
     <Project Path="src/Shared/Todo.Shared/Todo.Shared.csproj" />
   </Folder>
