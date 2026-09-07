@@ -46,7 +46,6 @@ namespace Todo.Identity.Domain.Entities
         {
             IsActive = false;
             UpdatedAt = DateTime.UtcNow;
-            RevokeRefreshToken();
         }
 
         public void SetRefreshToken(string refreshToken, DateTime expiryTime)
