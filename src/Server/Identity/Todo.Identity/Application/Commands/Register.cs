@@ -20,6 +20,7 @@ public static class Register
         public string ConfirmPassword { get; set; }
         public string Email { get; set; }
         public string? PhoneNumber { get; set; }
+        public bool RememberMe { get; set; } = false;
     }
     public class Handler(
         IUnitOfWork unitOfWork,
@@ -31,6 +32,11 @@ public static class Register
         {
             try
             {
+                if (!request.Password.Equals(request.ConfirmPassword))
+                {
+                    throw new ConfirmPasswordNotCorrectException($"ConfirmPassword and Password don't not match");
+                }
+
                 await unitOfWork.BeginTransactionAsync(cancellationToken);
 
                 // Create Value Objects
@@ -55,11 +61,18 @@ public static class Register
                 // Generate tokens
                 var roles = await userManager.GetRolesAsync(user);
                 var (accessToken, accessTokenExpiry) = tokenService.GenerateAccessToken(user, roles.ToList());
-                var refreshToken = tokenService.GenerateRefreshToken();
 
-                int refreshTokenExpiryinDays = configuration.GetValue(ConfigKeyword.Token.RefreshTokenExpireInDays, 7);
-                user.SetRefreshToken(refreshToken, DateTime.UtcNow.AddDays(refreshTokenExpiryinDays));
-                await userManager.UpdateAsync(user);
+                DateTime? refreshTokenExpiryTime = null;
+                string? refreshToken = null;
+
+                if (request.RememberMe)
+                {
+                    refreshToken = tokenService.GenerateRefreshToken();
+                    int refreshTokenExpiryinDays = configuration.GetValue(ConfigKeyword.Token.RefreshTokenExpireInDays, 7);
+                    refreshTokenExpiryTime = DateTime.UtcNow.AddDays(refreshTokenExpiryinDays);
+                    user.SetRefreshToken(refreshToken, refreshTokenExpiryTime.Value);
+                    await userManager.UpdateAsync(user);
+                }
 
                 await unitOfWork.SaveChangesAsync(cancellationToken);
                 await unitOfWork.CommitTransactionAsync(cancellationToken);
@@ -69,7 +82,8 @@ public static class Register
                     {
                         AccessToken = accessToken,
                         RefreshToken = refreshToken,
-                        AccessTokenExpiryTime = accessTokenExpiry
+                        AccessTokenExpiryTime = accessTokenExpiry,
+                        RefreshTokenExpiryTime = refreshTokenExpiryTime
                     }
                 );
             }
