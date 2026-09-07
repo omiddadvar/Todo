@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System.Net;
 using Todo.Identity.Domain.ValueObjects;
 
 namespace Todo.Identity.Domain.Entities
@@ -30,7 +29,7 @@ namespace Todo.Identity.Domain.Entities
             return new User(id, fullname, email, phoneNumber);
         }
 
-        public void UpdateProfile(FullName fullName, PhoneNumber? phoneNumber = null)
+        public void UpdateProfile(FullName fullName, Email email, PhoneNumber? phoneNumber = null)
         {
             FullName = fullName;
             PhoneNumber = phoneNumber;
