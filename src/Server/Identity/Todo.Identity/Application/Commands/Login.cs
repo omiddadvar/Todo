@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Todo.Identity.Application.Abstractions;
-using Todo.Identity.Application.Constants;
 using Todo.Identity.Application.DTOs;
 using Todo.Identity.Application.Exceptions;
+using Todo.Identity.Constants;
 using Todo.Identity.Domain.Entities;
 
 namespace Todo.Identity.Application.Commands;
