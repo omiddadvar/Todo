@@ -25,7 +25,7 @@ namespace Todo.Identity.Domain.Entities
             IsActive = true;
         }
 
-        public static User Create(Guid id, FullName fullname, Email email, PhoneNumber phoneNumber)
+        public static User Create(Guid id, FullName fullname, Email email, PhoneNumber? phoneNumber)
         {
             return new User(id, fullname, email, phoneNumber);
         }
