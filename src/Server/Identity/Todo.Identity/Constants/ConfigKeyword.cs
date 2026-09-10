@@ -6,6 +6,9 @@ public static class ConfigKeyword
     {
         public const string RefreshTokenExpireInDays = "JwtSettings:RefreshTokenExpireInDays";
         public const string AccessTokenExpireInMinutes = "JwtSettings:AccessTokenExpireInMinutes";
+        public const string SecretKey = "JwtSettings:SecretKey";
+        public const string Issuer = "JwtSettings:Issuer";
+        public const string Audience = "JwtSettings:Audience";
     }
     public static class Appsetting
     {

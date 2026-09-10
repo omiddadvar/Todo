@@ -1,18 +1,31 @@
 using Todo.Identity;
+using Todo.Identity.Infrastructure.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer((document, _, _) =>
+    {
+        document.Info = new Microsoft.OpenApi.OpenApiInfo
+        {
+            Title = "Todo Identity API",
+            Version = "v1",
+            Description = "ASP.NET WebAPI for Todo.Identity service (JWT Bearer Authentication)"
+        };
+        return Task.CompletedTask;
+    });
+});
 
 builder.Services.AddServices(builder.Configuration);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
@@ -20,6 +33,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
