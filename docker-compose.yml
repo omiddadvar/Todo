@@ -1,0 +1,153 @@
+﻿version: '3.8'
+
+services:
+  redis:
+    image: redis:8.2-alpine
+    container_name: todo_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+  rabbitmq:
+    image: rabbitmq:4-management-alpine
+    container_name: todo_rabbitmq
+    ports:
+      - "5672:5672"   # AMQP
+      - "15672:15672" # Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    container_name: todo_sqlserver
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Omid@13579"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "YourStrong@Passw0rd", "-Q", "SELECT 1", "-C"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+  todo-api-gateway:
+    build:
+      context: .
+      dockerfile: src/Server/API Gateway/Todo.ApiGateway/Dockerfile
+    container_name: todo_api_gateway
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - Redis__ConnectionString=redis:6379
+      - RabbitMQ__Host=rabbitmq
+      - ConnectionStrings__Default=Server=sqlserver;Database=TodoGatewayDb;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;
+    depends_on:
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      sqlserver:
+        condition: service_healthy
+
+  todo-main-api:
+    build:
+      context: .
+      dockerfile: src/Server/Main/Todo.Main.Api/Dockerfile
+    container_name: todo_main_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - Redis__ConnectionString=redis:6379
+      - RabbitMQ__Host=rabbitmq
+      - ConnectionStrings__Default=Server=sqlserver;Database=TodoMainDb;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;
+    depends_on:
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      sqlserver:
+        condition: service_healthy
+
+  todo-notification-api:
+    build:
+      context: .
+      dockerfile: src/Server/Notification/Todo.Notification.Api/Dockerfile
+    container_name: todo_notification_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - RabbitMQ__Host=rabbitmq
+      - ConnectionStrings__Default=Server=sqlserver;Database=TodoNotificationDb;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      sqlserver:
+        condition: service_healthy
+        
+  todo-search-api:
+    build:
+      context: .
+      dockerfile: src/Server/Search/Todo.Search.Api/Dockerfile
+    container_name: todo_search_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - Redis__ConnectionString=redis:6379
+      - RabbitMQ__Host=rabbitmq
+      - ConnectionStrings__Default=Server=sqlserver;Database=TodoSearchDb;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;
+    depends_on:
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      sqlserver:
+        condition: service_healthy
+    restart: unless-stopped
+    
+  todo-userprofile-api:
+    build:
+      context: .
+      dockerfile: "src/Server/User Profile/Todo.UserProfile.Api/Dockerfile"
+    container_name: todo_userprofile_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - Redis__ConnectionString=redis:6379
+      - RabbitMQ__Host=rabbitmq
+      - ConnectionStrings__Default=Server=sqlserver;Database=TodoUserProfileDb;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;
+    depends_on:
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      sqlserver:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  redis_data:
+  rabbitmq_data:
+  sqlserver_data:
