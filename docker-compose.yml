@@ -1,4 +1,4 @@
-﻿version: '3.8'
+version: '3.8'
 
 services:
   redis:
@@ -51,6 +51,7 @@ services:
       start_period: 30s
     restart: unless-stopped
 
+# Todo Services
   todo-api-gateway:
     build:
       context: .
@@ -72,11 +73,36 @@ services:
       sqlserver:
         condition: service_healthy
 
+  todo-identity:
+    build:
+      context: .
+      dockerfile: src/Server/Identity/Todo.Identity/Dockerfile
+    container_name: todo_identity
+    ports:
+      - "5010:8080"
+      - "5011:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - Redis__ConnectionString=redis:6379
+      - RabbitMQ__Host=rabbitmq
+    depends_on:
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      sqlserver:
+        condition: service_healthy
+    restart: unless-stopped
+
   todo-main-api:
     build:
       context: .
       dockerfile: src/Server/Main/Todo.Main.Api/Dockerfile
     container_name: todo_main_api
+    ports:
+      - "5012:8080"
+      - "5013:8081"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
@@ -96,6 +122,9 @@ services:
       context: .
       dockerfile: src/Server/Notification/Todo.Notification.Api/Dockerfile
     container_name: todo_notification_api
+    ports:
+      - "5014:8080"
+      - "5015:8081"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
@@ -112,6 +141,9 @@ services:
       context: .
       dockerfile: src/Server/Search/Todo.Search.Api/Dockerfile
     container_name: todo_search_api
+    ports:
+      - "5016:8080"
+      - "5017:8081"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
@@ -132,6 +164,9 @@ services:
       context: .
       dockerfile: "src/Server/User Profile/Todo.UserProfile.Api/Dockerfile"
     container_name: todo_userprofile_api
+    ports:
+      - "5018:8080"
+      - "5019:8081"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080

@@ -1,0 +1,19 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "todo-api-gateway": "StartDebugging",
+        "todo-identity": "StartDebugging",
+        "todo-main-api": "StartDebugging",
+        "todo-notification-api": "StartDebugging",
+        "todo-search-api": "StartDebugging",
+        "todo-userprofile-api": "StartDebugging",
+        "redis": "StartWithoutDebugging",
+        "rabbitmq": "StartWithoutDebugging",
+        "sqlserver": "StartWithoutDebugging"
+      }
+    }
+  }
+}

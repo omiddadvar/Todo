@@ -1,7 +1,6 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path="Directory.Build.targets" />
-    <File Path="docker-compose.yml" />
   </Folder>
   <Folder Name="/src/" />
   <Folder Name="/src/Client/">
@@ -81,4 +80,7 @@
     <Project Path="tests/Server/User Profile/Todo.UserProfile.Domain.Tests/Todo.UserProfile.Domain.Tests.csproj" Id="506ee961-42d2-49be-904e-c9abf17a0f57" />
     <Project Path="tests/Server/User Profile/Todo.UserProfile.Infrastructure.Tests/Todo.UserProfile.Infrastructure.Tests.csproj" Id="017c988c-2f18-4dbe-913e-5151a44623b0" />
   </Folder>
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
 </Solution>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
+	<PropertyGroup Label="Globals">
+		<ProjectVersion>2.1</ProjectVersion>
+		<DockerTargetOS>Linux</DockerTargetOS>
+		<ProjectGuid>81dded9d-158b-e303-5f62-77a2896d2a5a</ProjectGuid>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="docker-compose.override.yml">
+			<DependentUpon>docker-compose.yml</DependentUpon>
+		</None>
+		<None Include="docker-compose.yml" />
+		<None Include=".dockerignore" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\src\Server\API Gateway\Todo.ApiGateway\Todo.ApiGateway.csproj" />
+		<ProjectReference Include="..\src\Server\Identity\Todo.Identity\Todo.Identity.csproj" />
+		<ProjectReference Include="..\src\Server\Main\Todo.Main.Api\Todo.Main.Api.csproj" />
+		<ProjectReference Include="..\src\Server\Notification\Todo.Notification.Api\Todo.Notification.Api.csproj" />
+		<ProjectReference Include="..\src\Server\Search\Todo.Search.Api\Todo.Search.Api.csproj" />
+		<ProjectReference Include="..\src\Server\User Profile\Todo.UserProfile.Api\Todo.UserProfile.Api.csproj" />
+	</ItemGroup>
+</Project>
