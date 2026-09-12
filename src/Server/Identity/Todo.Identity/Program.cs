@@ -24,6 +24,8 @@ builder.Services.AddServices(builder.Configuration);
 
 var app = builder.Build();
 
+await app.MigrateDatabaseAsync();
+
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
