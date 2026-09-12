@@ -1,0 +1,22 @@
+﻿<Project>
+    <ItemGroup>
+        <PackageReference Update="MassTransit" Version="9.2.1" />
+        <PackageReference Update="MassTransit.RabbitMQ" Version="9.2.1" />
+        
+        <PackageReference Update="MediatR" Version="14.2.0" />
+        
+        <PackageReference Update="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.11" />
+        <PackageReference Update="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.11" />
+        <PackageReference Update="Microsoft.AspNetCore.OpenApi" Version="10.0.1" />
+        <PackageReference Update="System.IdentityModel.Tokens.Jwt" Version="8.22.0" />
+
+        <PackageReference Update="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.11" />
+        <PackageReference Update="Microsoft.EntityFrameworkCore.Tools" Version="10.0.11"/>
+
+        <PackageReference Update="Serilog.AspNetCore" Version="10.0.0" />
+        <PackageReference Update="Serilog.Settings.Configuration" Version="10.0.1" />
+        <PackageReference Update="Serilog.Sinks.Seq" Version="9.1.0" />
+        
+        <PackageReference Update="Yarp.ReverseProxy" Version="2.3.0" />
+    </ItemGroup>
+</Project>
