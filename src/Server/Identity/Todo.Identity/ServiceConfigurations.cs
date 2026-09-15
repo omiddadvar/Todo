@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi;
 using System.Text;
 using Todo.Identity.Application.Abstractions;
 using Todo.Identity.Constants;
@@ -24,6 +25,7 @@ public static class ServiceConfigurations
         services.AddJwtAuthentication(configuration);
         services.AddMediatRServices();
         services.AddApplicationServices();
+        services.AddOpenApiService();
         services.AddMasstransitService(configuration);
         return services;
     }
@@ -102,6 +104,48 @@ public static class ServiceConfigurations
         return services;
     }
 
+    private static IServiceCollection AddOpenApiService(this IServiceCollection services)
+    {
+        services.AddOpenApi(options =>
+        {
+            options.AddDocumentTransformer((document, context, cancellationToken) =>
+            {
+                document.Info = new OpenApiInfo
+                {
+                    Title = "Todo Identity API",
+                    Version = "v1",
+                    Description = "ASP.NET WebAPI for Todo.Identity service (JWT Bearer Authentication)"
+                };
+                return Task.CompletedTask;
+            });
+
+            options.AddDocumentTransformer((document, context, cancellationToken) =>
+            {
+                var scheme = new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Description = "Enter your JWT token (without 'Bearer ' prefix)."
+                };
+
+                document.Components ??= new OpenApiComponents();
+                document.Components.SecuritySchemes ??= new Dictionary<string, IOpenApiSecurityScheme>();
+                document.Components.SecuritySchemes["Bearer"] = scheme;
+
+                document.Security ??= new List<OpenApiSecurityRequirement>();
+                document.Security.Add(new OpenApiSecurityRequirement
+                {
+                    [new OpenApiSecuritySchemeReference("Bearer", document)] = []
+                });
+
+                return Task.CompletedTask;
+            });
+        });
+        return services;
+    }
     private static IServiceCollection AddMasstransitService(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddMassTransit(x =>
