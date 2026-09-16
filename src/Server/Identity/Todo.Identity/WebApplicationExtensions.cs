@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using Serilog;
-using Todo.Identity.Infrastructure;
+using Todo.Identity.Infrastructure.Data;
 
 namespace Todo.Identity;
 
