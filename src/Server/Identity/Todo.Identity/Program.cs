@@ -14,20 +14,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddOpenApi(options =>
-{
-    options.AddDocumentTransformer((document, _, _) =>
-    {
-        document.Info = new Microsoft.OpenApi.OpenApiInfo
-        {
-            Title = "Todo Identity API",
-            Version = "v1",
-            Description = "ASP.NET WebAPI for Todo.Identity service (JWT Bearer Authentication)"
-        };
-        return Task.CompletedTask;
-    });
-});
-
 builder.Services.AddServices(builder.Configuration);
 
 builder.Host.UseSerilog((context, services, configuration) => configuration

@@ -1,6 +1,7 @@
 ﻿using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.OpenApi;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
@@ -10,7 +11,6 @@ using Todo.Identity.Constants;
 using Todo.Identity.Domain.Abstractions;
 using Todo.Identity.Domain.Abstractions.Repositories;
 using Todo.Identity.Domain.Entities;
-using Todo.Identity.Infrastructure;
 using Todo.Identity.Infrastructure.Data;
 using Todo.Identity.Infrastructure.Services;
 
@@ -104,45 +104,58 @@ public static class ServiceConfigurations
         return services;
     }
 
+    internal sealed class TodoIdentityDocumentTransformer : IOpenApiDocumentTransformer
+    {
+        public Task TransformAsync(
+            OpenApiDocument document,
+            OpenApiDocumentTransformerContext context,
+            CancellationToken cancellationToken)
+        {
+            document.Info = new OpenApiInfo
+            {
+                Title = "Todo Identity API",
+                Version = "v1",
+                Description = "ASP.NET WebAPI for Todo.Identity service (JWT Bearer Authentication)"
+            };
+            return Task.CompletedTask;
+        }
+    }
+    internal sealed class BearerSecuritySchemeTransformer : IOpenApiDocumentTransformer
+    {
+        public Task TransformAsync(
+            OpenApiDocument document,
+            OpenApiDocumentTransformerContext context,
+            CancellationToken cancellationToken)
+        {
+            var scheme = new OpenApiSecurityScheme
+            {
+                Type = SecuritySchemeType.Http,
+                Scheme = "bearer",
+                BearerFormat = "JWT",
+                In = ParameterLocation.Header,
+                Name = "Authorization",
+                Description = "Enter your JWT token (without 'Bearer ' prefix)."
+            };
+
+            document.Components ??= new OpenApiComponents();
+            document.Components.SecuritySchemes ??= new Dictionary<string, IOpenApiSecurityScheme>();
+            document.Components.SecuritySchemes["Bearer"] = scheme;
+
+            document.Security ??= new List<OpenApiSecurityRequirement>();
+            document.Security.Add(new OpenApiSecurityRequirement
+            {
+                [new OpenApiSecuritySchemeReference("Bearer", document)] = []
+            });
+
+            return Task.CompletedTask;
+        }
+    }
     private static IServiceCollection AddOpenApiService(this IServiceCollection services)
     {
         services.AddOpenApi(options =>
         {
-            options.AddDocumentTransformer((document, context, cancellationToken) =>
-            {
-                document.Info = new OpenApiInfo
-                {
-                    Title = "Todo Identity API",
-                    Version = "v1",
-                    Description = "ASP.NET WebAPI for Todo.Identity service (JWT Bearer Authentication)"
-                };
-                return Task.CompletedTask;
-            });
-
-            options.AddDocumentTransformer((document, context, cancellationToken) =>
-            {
-                var scheme = new OpenApiSecurityScheme
-                {
-                    Type = SecuritySchemeType.Http,
-                    Scheme = "bearer",
-                    BearerFormat = "JWT",
-                    In = ParameterLocation.Header,
-                    Name = "Authorization",
-                    Description = "Enter your JWT token (without 'Bearer ' prefix)."
-                };
-
-                document.Components ??= new OpenApiComponents();
-                document.Components.SecuritySchemes ??= new Dictionary<string, IOpenApiSecurityScheme>();
-                document.Components.SecuritySchemes["Bearer"] = scheme;
-
-                document.Security ??= new List<OpenApiSecurityRequirement>();
-                document.Security.Add(new OpenApiSecurityRequirement
-                {
-                    [new OpenApiSecuritySchemeReference("Bearer", document)] = []
-                });
-
-                return Task.CompletedTask;
-            });
+            options.AddDocumentTransformer(new TodoIdentityDocumentTransformer());
+            options.AddDocumentTransformer(new BearerSecuritySchemeTransformer());
         });
         return services;
     }
