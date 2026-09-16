@@ -15,19 +15,21 @@ namespace Todo.Identity.Domain.Entities
         public DateTime? RefreshTokenExpiryTime { get; private set; }
 
         private User() { }
-        private User(Guid id, FullName fullname, Email email, PhoneNumber? phoneNumber = null)
+        private User(Guid id, string userName, FullName fullname, Email email, PhoneNumber? phoneNumber = null)
         {
             Id = id;
             FullName = fullname;
             EmailAddress = email;
+            Email = email.Value;
             PhoneNumber = phoneNumber;
             CreatedAt = DateTime.UtcNow;
+            UserName = userName;
             IsActive = true;
         }
 
-        public static User Create(Guid id, FullName fullname, Email email, PhoneNumber? phoneNumber)
+        public static User Create(Guid id, string userName, FullName fullname, Email email, PhoneNumber? phoneNumber)
         {
-            return new User(id, fullname, email, phoneNumber);
+            return new User(id, userName, fullname, email, phoneNumber);
         }
 
         public void UpdateProfile(FullName fullName, Email email, PhoneNumber? phoneNumber = null)

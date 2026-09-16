@@ -28,6 +28,7 @@ public class AuthController : BaseIdentityController
     {
         var command = new Register.Command
         {
+            UserName = request.UserName,
             FirstName = request.FirstName,
             LastName = request.LastName,
             Email = request.Email,

@@ -14,6 +14,7 @@ public static class Register
 {
     public record Command : ICommand<Result>
     {
+        public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Password { get; set; }
@@ -45,7 +46,7 @@ public static class Register
                 var phoneNumber = request.PhoneNumber is not null ? PhoneNumber.Create(request.PhoneNumber) : null;
 
                 // Create User
-                var user = User.Create(Guid.NewGuid(), fullName, email, phoneNumber);
+                var user = User.Create(Guid.NewGuid(), request.UserName, fullName, email, phoneNumber);
 
                 var result = await userManager.CreateAsync(user, request.Password);
 
