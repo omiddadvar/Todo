@@ -42,12 +42,12 @@ public class TokenService : ITokenService
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Email, user.Email),
+            new Claim(ClaimTypes.Email, user.EmailAddress),
             new Claim(ClaimTypes.Name, $"{user.FullName.FirstName} {user.FullName.LastName}"),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim("firstName", user.FullName.FirstName),
             new Claim("lastName", user.FullName.LastName),
-            new Claim("email", user.Email),
+            new Claim("email", user.EmailAddress),
             new Claim("userId", user.Id.ToString())
         };
 

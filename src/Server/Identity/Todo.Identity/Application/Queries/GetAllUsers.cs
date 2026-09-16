@@ -64,7 +64,7 @@ public static class GetAllUsers
                 userInfos.Add(new UserInfoDTO
                 {
                     Id = user.Id,
-                    Email = user.Email,
+                    Email = user.EmailAddress,
                     FirstName = user.FullName.FirstName,
                     LastName = user.FullName.LastName,
                     PhoneNumber = user.PhoneNumber?.Value,
@@ -108,8 +108,8 @@ public static class GetAllUsers
             return sortBy?.ToLower() switch
             {
                 "email" => descending
-                    ? query.OrderByDescending(u => u.Email)
-                    : query.OrderBy(u => u.Email),
+                    ? query.OrderByDescending(u => u.EmailAddress)
+                    : query.OrderBy(u => u.EmailAddress),
                 "firstname" => descending
                     ? query.OrderByDescending(u => u.FullName.FirstName)
                     : query.OrderBy(u => u.FullName.FirstName),

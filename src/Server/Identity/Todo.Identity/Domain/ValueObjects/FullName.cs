@@ -5,9 +5,9 @@ namespace Todo.Identity.Domain.ValueObjects;
 
 public class FullName : ValueObject
 {
-    public string FirstName { get; }
-    public string LastName { get; }
-
+    public string FirstName { get; init; }
+    public string LastName { get; init; }
+    private FullName() { }
     private FullName(string firstName, string lastName)
     {
         FirstName = firstName;

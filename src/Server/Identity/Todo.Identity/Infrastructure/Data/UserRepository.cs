@@ -1,6 +1,6 @@
-﻿using Todo.Identity.Domain.Abstractions.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using Todo.Identity.Domain.Abstractions.Repositories;
 using Todo.Identity.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace Todo.Identity.Infrastructure.Data;
 
@@ -21,7 +21,7 @@ public class UserRepository : IUserRepository
 
     public async Task<User> GetByEmailAsync(string email)
     {
-        return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        return await _context.Users.FirstOrDefaultAsync(u => u.EmailAddress == email);
     }
 
     public async Task<User> GetByRefreshTokenAsync(string refreshToken)
@@ -64,6 +64,6 @@ public class UserRepository : IUserRepository
 
     public async Task<bool> ExistsByEmailAsync(string email)
     {
-        return await _context.Users.AnyAsync(u => u.Email == email);
+        return await _context.Users.AnyAsync(u => u.EmailAddress == email);
     }
 }

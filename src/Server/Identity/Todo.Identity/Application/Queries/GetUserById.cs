@@ -27,7 +27,7 @@ public static class GetUserById
             return Result.Success(new UserInfoDTO
             {
                 Id = user.Id,
-                Email = user.Email,
+                Email = user.EmailAddress,
                 FirstName = user.FullName.FirstName,
                 LastName = user.FullName.LastName,
                 PhoneNumber = user.PhoneNumber?.Value,

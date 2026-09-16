@@ -27,7 +27,7 @@ public static class GetUserRoles
             return Result.Success(new UserRolesDTO
             {
                 UserId = user.Id,
-                Email = user.Email,
+                Email = user.EmailAddress,
                 Roles = roles.ToList()
             });
         }

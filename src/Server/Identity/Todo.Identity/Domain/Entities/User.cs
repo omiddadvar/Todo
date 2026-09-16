@@ -6,7 +6,7 @@ namespace Todo.Identity.Domain.Entities
     public class User : IdentityUser<Guid>
     {
         public FullName FullName { get; private set; }
-        public Email Email { get; private set; }
+        public Email EmailAddress { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime? UpdatedAt { get; private set; }
         public PhoneNumber? PhoneNumber { get; private set; }
@@ -14,11 +14,12 @@ namespace Todo.Identity.Domain.Entities
         public string? RefreshToken { get; private set; }
         public DateTime? RefreshTokenExpiryTime { get; private set; }
 
+        private User() { }
         private User(Guid id, FullName fullname, Email email, PhoneNumber? phoneNumber = null)
         {
             Id = id;
             FullName = fullname;
-            Email = email;
+            EmailAddress = email;
             PhoneNumber = phoneNumber;
             CreatedAt = DateTime.UtcNow;
             IsActive = true;

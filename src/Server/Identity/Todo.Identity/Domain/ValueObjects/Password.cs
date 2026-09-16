@@ -6,7 +6,7 @@ namespace Todo.Identity.Domain.ValueObjects;
 public class Password : ValueObject
 {
     public string Hash { get; private set; }
-
+    private Password() { }
     private Password(string hash)
     {
         Hash = hash;
@@ -48,5 +48,5 @@ public class Password : ValueObject
     }
 
     // For more security - Hide password
-    public override string ToString() => "******"; 
+    public override string ToString() => "******";
 }

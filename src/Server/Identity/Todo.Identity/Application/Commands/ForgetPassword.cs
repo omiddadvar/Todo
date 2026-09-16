@@ -36,13 +36,13 @@ public static class ForgetPassword
 
             // Create reset link
             var baseUrl = request.ResetUrl ?? configuration[ConfigKeyword.Appsetting.BaseUrl];
-            var resetLink = $"{baseUrl}/reset-password?email={user.Email}&token={Uri.EscapeDataString(resetToken)}";
+            var resetLink = $"{baseUrl}/reset-password?email={user.EmailAddress}&token={Uri.EscapeDataString(resetToken)}";
 
             // Publish event
             await publishEndpoint.Publish(new UserPasswordResetRequestedEvent
             {
                 UserId = user.Id,
-                Email = user.Email,
+                Email = user.EmailAddress,
                 FullName = $"{user.FullName.FirstName} {user.FullName.LastName}",
                 ResetLink = resetLink,
                 ResetToken = resetToken,
@@ -53,7 +53,7 @@ public static class ForgetPassword
             return Result.Success(new
             {
                 Message = "Password reset link has been sent to your email",
-                Email = user.Email,
+                Email = user.EmailAddress,
                 ResetLinkSent = true
             });
         }

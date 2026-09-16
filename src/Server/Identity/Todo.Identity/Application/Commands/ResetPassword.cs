@@ -47,7 +47,7 @@ public static class ResetPassword
             return Result.Success(new
             {
                 Message = "Password has been reset successfully",
-                Email = user.Email
+                Email = user.EmailAddress
             });
         }
     }
